@@ -5,6 +5,19 @@ import numpy as np
 import cv2
 import json
 import os
+import gdown
+
+MODEL_PATH = "defect_model_best.h5"
+MODEL_URL = "https://drive.google.com/uc?id=1zZtaDEbTxt882BHdsrMObAWDoOPCYZE1"
+
+if not os.path.exists(MODEL_PATH):
+    print("⬇️ Downloading model from Google Drive...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+print("📦 Loading model...")
+model = tf.keras.models.load_model(MODEL_PATH)
+print("✅ Model loaded successfully")
+
 
 app = Flask(__name__, static_folder='../', static_url_path='')
 CORS(app)
